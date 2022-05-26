@@ -8,7 +8,7 @@ import Render from './errors/Render';
 import RequestFrameAnimation from './errors/RequestAnimationFrame';
 import SetTimeout from './errors/SetTimeout';
 
-import { Divider } from 'antd';
+import { Divider, Button } from 'antd';
 
 import ErrorBoundary from './ErrorBoundary';
 
@@ -20,6 +20,11 @@ function Demo() {
     const [requestAnimationFrameError, setRequestAnimationFrame] =
         useState(false);
     const [asyncError, setAsyncError] = useState(false);
+    const [selftError, setSelfError] = useState(false);
+
+    if (selftError) {
+        throw new Error('There is something wrong');
+    }
 
     return (
         <div className="demo">
@@ -68,6 +73,14 @@ function Demo() {
                         setSetTimeoutError={setSetTimeoutError}
                     />
                 </ErrorBoundary>
+
+                <Button
+                    shape="round"
+                    onClick={() => {
+                        setSelfError(true);
+                    }}>
+                    Self
+                </Button>
             </ErrorBoundary>
         </div>
     );
